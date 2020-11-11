@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import Spinner from "./Spinner";
 
 const Container = styled.div`
   color: #fff;
@@ -20,6 +21,7 @@ const Price = styled.p`
 
 const Result = ({ result }) => {
   if (result === null) return null;
+  if (result === false) return <Spinner />;
   return (
     <Container>
       <Price>

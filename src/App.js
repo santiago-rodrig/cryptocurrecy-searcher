@@ -44,12 +44,17 @@ function App() {
   const [result, setResult] = useState(null);
   useEffect(() => {
     if (query === null) return;
+    setResult(false);
     const queryAPI = async () => {
       const API_KEY =
         "a028a3d92c022ebfb7179fb6e655b4a479b230f85e384021633b12eb5aa3f139";
       const URL = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${query.cryptoCurrency}&tsyms=${query.currency}&api_key=${API_KEY}`;
       const result = await axios.get(URL);
-      setResult(result.data.DISPLAY[query.cryptoCurrency][query.currency]);
+      setTimeout(
+        () =>
+          setResult(result.data.DISPLAY[query.cryptoCurrency][query.currency]),
+        2000
+      );
     };
 
     queryAPI();
@@ -62,7 +67,7 @@ function App() {
       <div>
         <Heading>Busca precios de criptomonedas al instante</Heading>
         <Form setQuery={setQuery} />
-        <Result result={result} />
+        {<Result result={result} />}
       </div>
     </Container>
   );

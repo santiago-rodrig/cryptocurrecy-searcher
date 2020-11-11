@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import axios from "axios";
+import PropTypes from "prop-types";
 import useCurrency from "../hooks/useCurrency";
 import useCryptoCurrency from "../hooks/useCryptoCurrency";
 import Error from "./Error";
@@ -71,6 +72,10 @@ const Form = ({ setQuery }) => {
       <SubmitButton type="submit" value="Buscar" />
     </form>
   );
+};
+
+Form.propTypes = {
+  setQuery: PropTypes.func.isRequired,
 };
 
 export default Form;
