@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import cryptoImage from "./criptomonedas.png";
-import Form from './components/Form'
+import Form from "./components/Form";
 
 const Container = styled.div`
   max-width: 900px;
