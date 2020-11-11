@@ -29,6 +29,7 @@ const SubmitButton = styled.input`
 `;
 
 const Form = () => {
+  const [error, setError] = useState(false);
   const [currency, CurrencySelect] = useCurrency("Moneda", "", CURRENCIES);
   const [cryptocurrencies, setCryptocurrencies] = useState([]);
   const [cryptoCurrency, CryptoCurrencySelect] = useCryptoCurrency(
@@ -36,6 +37,17 @@ const Form = () => {
     "",
     cryptocurrencies
   );
+
+  const searchCryptoCurrency = (e) => {
+    e.preventDefault();
+
+    if (currency.trim() == "" || cryptoCurrency.trim() == "") {
+      setError(true);
+      return;
+    }
+
+    setError(false);
+  };
 
   useEffect(() => {
     const queryAPI = async () => {
@@ -50,7 +62,8 @@ const Form = () => {
   }, [setCryptocurrencies]);
 
   return (
-    <form>
+    <form onSubmit={searchCryptoCurrency}>
+      {error ? "Hay un error" : null}
       <CurrencySelect />
       <CryptoCurrencySelect />
       <SubmitButton type="submit" value="Buscar" />
