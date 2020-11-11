@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import cryptoImage from "./criptomonedas.png";
 import Form from "./components/Form";
+import Result from "./components/Result";
 
 const Container = styled.div`
   max-width: 900px;
@@ -40,6 +41,7 @@ const Heading = styled.h1`
 
 function App() {
   const [query, setQuery] = useState(null);
+  const [result, setResult] = useState(null);
   useEffect(() => {
     if (query === null) return;
     const queryAPI = async () => {
@@ -47,11 +49,11 @@ function App() {
         "a028a3d92c022ebfb7179fb6e655b4a479b230f85e384021633b12eb5aa3f139";
       const URL = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${query.cryptoCurrency}&tsyms=${query.currency}&api_key=${API_KEY}`;
       const result = await axios.get(URL);
-      console.log(result.data.DISPLAY[query.cryptoCurrency][query.currency]);
+      setResult(result.data.DISPLAY[query.cryptoCurrency][query.currency]);
     };
 
     queryAPI();
-  }, [query]);
+  }, [query, setResult]);
   return (
     <Container>
       <div>
@@ -60,6 +62,7 @@ function App() {
       <div>
         <Heading>Busca precios de criptomonedas al instante</Heading>
         <Form setQuery={setQuery} />
+        <Result result={result} />
       </div>
     </Container>
   );
