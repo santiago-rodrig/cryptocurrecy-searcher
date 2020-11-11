@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import useCurrency from "../hooks/useCurrency";
+import useCryptoCurrency from "../hooks/useCryptoCurrency";
 
 const CURRENCIES = [
   { code: "USD", name: "Dólar de Estados Unidos" },
@@ -8,6 +9,8 @@ const CURRENCIES = [
   { code: "EUR", name: "Euro" },
   { code: "GBP", name: "Libra Esterlina" },
 ];
+
+const CRYPTO_CURRENCIES = [{ code: "USD", name: "Bitcoin" }];
 
 const SubmitButton = styled.input`
   margin-top: 20px;
@@ -28,10 +31,16 @@ const SubmitButton = styled.input`
 
 const Form = () => {
   const [currency, CurrencySelect] = useCurrency("Moneda", "", CURRENCIES);
+  const [cryptoCurrency, CryptoCurrencySelect] = useCryptoCurrency(
+    "Criptomoneda",
+    "",
+    CRYPTO_CURRENCIES
+  );
 
   return (
     <form>
       <CurrencySelect />
+      <CryptoCurrencySelect />
       <SubmitButton type="submit" value="Buscar" />
     </form>
   );
