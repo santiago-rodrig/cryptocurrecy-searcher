@@ -32,8 +32,8 @@ const useCryptoCurrency = (labelText, initialState, currencies) => {
           -- Elige una criptomoneda --
         </option>
         {currencies.map((c) => (
-          <option key={c.code} value={c.code}>
-            {c.name}
+          <option key={c.CoinInfo.Name} value={c.CoinInfo.Name}>
+            {c.CoinInfo.FullName}
           </option>
         ))}
       </Select>

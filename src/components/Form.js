@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
+import axios from "axios";
 import useCurrency from "../hooks/useCurrency";
 import useCryptoCurrency from "../hooks/useCryptoCurrency";
 
@@ -9,8 +10,6 @@ const CURRENCIES = [
   { code: "EUR", name: "Euro" },
   { code: "GBP", name: "Libra Esterlina" },
 ];
-
-const CRYPTO_CURRENCIES = [{ code: "USD", name: "Bitcoin" }];
 
 const SubmitButton = styled.input`
   margin-top: 20px;
@@ -31,11 +30,24 @@ const SubmitButton = styled.input`
 
 const Form = () => {
   const [currency, CurrencySelect] = useCurrency("Moneda", "", CURRENCIES);
+  const [cryptocurrencies, setCryptocurrencies] = useState([]);
   const [cryptoCurrency, CryptoCurrencySelect] = useCryptoCurrency(
     "Criptomoneda",
     "",
-    CRYPTO_CURRENCIES
+    cryptocurrencies
   );
+
+  useEffect(() => {
+    const queryAPI = async () => {
+      const API_KEY =
+        "a028a3d92c022ebfb7179fb6e655b4a479b230f85e384021633b12eb5aa3f139";
+      const URL = `https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD&api_key=${API_KEY}`;
+      const result = await axios.get(URL);
+      setCryptocurrencies(result.data.Data);
+    };
+
+    queryAPI();
+  }, [setCryptocurrencies]);
 
   return (
     <form>
