@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import cryptoImage from "./criptomonedas.png";
 import Form from "./components/Form";
@@ -38,6 +38,11 @@ const Heading = styled.h1`
 `;
 
 function App() {
+  const [query, setQuery] = useState(null);
+  useEffect(() => {
+    if (query === null) return;
+    console.log("searching...");
+  }, [query]);
   return (
     <Container>
       <div>
@@ -45,7 +50,7 @@ function App() {
       </div>
       <div>
         <Heading>Busca precios de criptomonedas al instante</Heading>
-        <Form />
+        <Form setQuery={setQuery} />
       </div>
     </Container>
   );

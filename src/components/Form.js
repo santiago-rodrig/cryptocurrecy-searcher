@@ -29,14 +29,14 @@ const SubmitButton = styled.input`
   }
 `;
 
-const Form = () => {
+const Form = ({ setQuery }) => {
   const [error, setError] = useState(false);
   const [currency, CurrencySelect] = useCurrency("Moneda", "", CURRENCIES);
-  const [cryptocurrencies, setCryptocurrencies] = useState([]);
+  const [cryptoCurrencies, setcryptoCurrencies] = useState([]);
   const [cryptoCurrency, CryptoCurrencySelect] = useCryptoCurrency(
     "Criptomoneda",
     "",
-    cryptocurrencies
+    cryptoCurrencies
   );
 
   const searchCryptoCurrency = (e) => {
@@ -48,6 +48,7 @@ const Form = () => {
     }
 
     setError(false);
+    setQuery({ currency, cryptoCurrency });
   };
 
   useEffect(() => {
@@ -56,11 +57,11 @@ const Form = () => {
         "a028a3d92c022ebfb7179fb6e655b4a479b230f85e384021633b12eb5aa3f139";
       const URL = `https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD&api_key=${API_KEY}`;
       const result = await axios.get(URL);
-      setCryptocurrencies(result.data.Data);
+      setcryptoCurrencies(result.data.Data);
     };
 
     queryAPI();
-  }, [setCryptocurrencies]);
+  }, [setcryptoCurrencies]);
 
   return (
     <form onSubmit={searchCryptoCurrency}>
