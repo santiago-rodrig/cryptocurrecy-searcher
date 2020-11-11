@@ -2,6 +2,13 @@ import React from "react";
 import styled from "@emotion/styled";
 import useCurrency from "../hooks/useCurrency";
 
+const CURRENCIES = [
+  { code: "USD", name: "Dólar de Estados Unidos" },
+  { code: "MXN", name: "Peso Mexicano" },
+  { code: "EUR", name: "Euro" },
+  { code: "GBP", name: "Libra Esterlina" },
+];
+
 const SubmitButton = styled.input`
   margin-top: 20px;
   font-weight: bold;
@@ -20,7 +27,7 @@ const SubmitButton = styled.input`
 `;
 
 const Form = () => {
-  const [currency, CurrencySelect, setCurrency] = useCurrency();
+  const [currency, CurrencySelect] = useCurrency("Moneda", "", CURRENCIES);
 
   return (
     <form>
