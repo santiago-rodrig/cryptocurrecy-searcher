@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
+import axios from "axios";
 import cryptoImage from "./criptomonedas.png";
 import Form from "./components/Form";
 
@@ -41,7 +42,15 @@ function App() {
   const [query, setQuery] = useState(null);
   useEffect(() => {
     if (query === null) return;
-    console.log("searching...");
+    const queryAPI = async () => {
+      const API_KEY =
+        "a028a3d92c022ebfb7179fb6e655b4a479b230f85e384021633b12eb5aa3f139";
+      const URL = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${query.cryptoCurrency}&tsyms=${query.currency}&api_key=${API_KEY}`;
+      const result = await axios.get(URL);
+      console.log(result.data.DISPLAY[query.cryptoCurrency][query.currency]);
+    };
+
+    queryAPI();
   }, [query]);
   return (
     <Container>
