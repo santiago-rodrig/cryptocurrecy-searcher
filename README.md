@@ -1,4 +1,4 @@
-# Crypto Currency Searcher
+# Cryptocurrency Searcher
 
 This is an application for querying the price of cryptocurrencies in different currencies. The application
 was built using ReactJS.
