@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import useCurrency from "../hooks/useCurrency";
 import useCryptoCurrency from "../hooks/useCryptoCurrency";
+import Error from "./Error";
 
 const CURRENCIES = [
   { code: "USD", name: "Dólar de Estados Unidos" },
@@ -41,7 +42,7 @@ const Form = () => {
   const searchCryptoCurrency = (e) => {
     e.preventDefault();
 
-    if (currency.trim() == "" || cryptoCurrency.trim() == "") {
+    if (currency.trim() === "" || cryptoCurrency.trim() === "") {
       setError(true);
       return;
     }
@@ -63,7 +64,7 @@ const Form = () => {
 
   return (
     <form onSubmit={searchCryptoCurrency}>
-      {error ? "Hay un error" : null}
+      {error ? <Error message="Todos los campos son obligatorios" /> : null}
       <CurrencySelect />
       <CryptoCurrencySelect />
       <SubmitButton type="submit" value="Buscar" />
